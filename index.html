@@ -4,193 +4,529 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --border: #1f1f1f;
-      --text-primary: #f0f0f0;
-      --text-secondary: #6b6b6b;
-      --accent: #f0f0f0;
+      --bg: #060608;
+      --text: #f2f2f2;
+      --muted: rgba(255,255,255,0.38);
+      --border: rgba(255,255,255,0.07);
+      --surface: rgba(255,255,255,0.04);
     }
 
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-primary);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
       min-height: 100vh;
-      padding: 2rem;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container {
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
+    /* ── Background canvas ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
     }
 
-    .badge {
-      display: inline-flex;
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.55;
+      will-change: transform;
+    }
+
+    .orb-1 {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, #5b21b6, transparent 70%);
+      top: -200px; left: -200px;
+      animation: float1 18s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #1d4ed8, transparent 70%);
+      bottom: -150px; right: -150px;
+      animation: float2 22s ease-in-out infinite;
+    }
+
+    .orb-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #be185d, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: float3 15s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(80px, 60px) scale(1.08); }
+      66%       { transform: translate(-40px, 80px) scale(0.95); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(-60px, -80px) scale(1.1); }
+      66%       { transform: translate(50px, -40px) scale(0.92); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50%       { transform: translate(-50%, -50%) scale(1.3); opacity: 0.3; }
+    }
+
+    /* noise grain overlay */
+    .bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    header {
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .logo span {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #a855f7;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .status-pill {
+      display: flex;
       align-items: center;
       gap: 6px;
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--text-secondary);
+      color: var(--muted);
       border: 1px solid var(--border);
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 999px;
-      margin-bottom: 2.5rem;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
     }
 
-    .badge-dot {
-      width: 5px;
-      height: 5px;
+    .pulse {
+      width: 6px; height: 6px;
       background: #4ade80;
       border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
+      animation: pulse 2.5s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      50%       { opacity: 0.5; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* ── Hero ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
     }
 
     h1 {
-      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 1.75rem;
+      background: linear-gradient(160deg, #fff 30%, rgba(255,255,255,0.45));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 3.5rem;
+      font-weight: 300;
+    }
+
+    /* ── Countdown ── */
+    .countdown {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 72px;
+    }
+
+    .count-box {
+      width: 72px; height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
       font-weight: 600;
       letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
     }
 
-    p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 3rem;
+    .count-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.06), transparent);
+      pointer-events: none;
     }
 
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-      margin: 0 auto 3rem;
+    .count-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Email form ── */
+    .form-wrap {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1rem;
     }
 
     .notify-form {
       display: flex;
       gap: 8px;
-      max-width: 360px;
-      margin: 0 auto;
     }
 
     .notify-form input {
       flex: 1;
       background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--text-primary);
-      padding: 10px 16px;
-      border-radius: 8px;
+      color: var(--text);
+      padding: 12px 18px;
+      border-radius: 12px;
       font-size: 14px;
+      font-family: inherit;
       outline: none;
-      transition: border-color 0.15s;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s, background 0.2s;
     }
 
-    .notify-form input::placeholder {
-      color: var(--text-secondary);
-    }
-
+    .notify-form input::placeholder { color: var(--muted); }
     .notify-form input:focus {
-      border-color: #333;
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
     }
 
     .notify-form button {
-      background: var(--text-primary);
-      color: var(--bg);
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: #fff;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
       font-size: 14px;
       font-weight: 500;
+      font-family: inherit;
       cursor: pointer;
-      transition: opacity 0.15s;
+      transition: opacity 0.15s, transform 0.15s;
       white-space: nowrap;
     }
 
-    .notify-form button:hover {
-      opacity: 0.85;
+    .notify-form button:hover { opacity: 0.88; transform: translateY(-1px); }
+    .notify-form button:active { transform: translateY(0); }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
     }
 
     .success-msg {
       display: none;
       font-size: 14px;
       color: #4ade80;
-      margin-top: 1rem;
+      padding: 12px 20px;
+      background: rgba(74,222,128,0.08);
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 12px;
+      margin-top: 8px;
     }
 
+    /* ── Footer ── */
     footer {
-      position: fixed;
-      bottom: 2rem;
-      left: 0;
-      right: 0;
-      text-align: center;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-copy {
       font-size: 12px;
-      color: var(--text-secondary);
+      color: var(--muted);
+    }
+
+    .socials {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .socials a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
       letter-spacing: 0.02em;
+    }
+
+    .socials a:hover { color: var(--text); }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 3rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .progress-pct {
+      font-size: 12px;
+      font-weight: 600;
+      color: #a78bfa;
+    }
+
+    .progress-track {
+      height: 3px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
+      border-radius: 99px;
+      transition: width 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Fade in ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.22s; }
+    .fade-in:nth-child(3) { animation-delay: 0.34s; }
+    .fade-in:nth-child(4) { animation-delay: 0.46s; }
+    .fade-in:nth-child(5) { animation-delay: 0.58s; }
+    .fade-in:nth-child(6) { animation-delay: 0.70s; }
+
+    @media (max-width: 480px) {
+      header, footer { padding: 1.5rem; }
+      .count-box { width: 60px; height: 60px; font-size: 1.6rem; }
+      .countdown { gap: 0.85rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Under Construction
-    </div>
-
-    <h1>Something is<br />on its way.</h1>
-
-    <div class="divider"></div>
-
-    <p>We're working on something. Leave your email<br />and we'll let you know when it's ready.</p>
-
-    <form class="notify-form" onsubmit="handleSubmit(event)">
-      <input type="email" placeholder="your@email.com" required />
-      <button type="submit">Notify me</button>
-    </form>
-
-    <p class="success-msg" id="success">You're on the list. We'll be in touch.</p>
+  <div class="bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
 
-  <footer>
-    &copy; <span id="year"></span> &mdash; Coming soon.
-  </footer>
+  <div class="page">
+
+    <header>
+      <div class="logo"><span></span>Studio</div>
+      <div class="status-pill"><span class="pulse"></span> In Progress</div>
+    </header>
+
+    <main>
+      <p class="eyebrow fade-in">We're building something</p>
+
+      <h1 class="fade-in">Coming<br />Soon.</h1>
+
+      <p class="subtitle fade-in">
+        Something remarkable is taking shape.<br />
+        We'll be live before you know it.
+      </p>
+
+      <div class="countdown fade-in">
+        <div class="countdown-item">
+          <div class="count-box" id="cd-days">00</div>
+          <div class="count-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="count-box" id="cd-hours">00</div>
+          <div class="count-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="count-box" id="cd-mins">00</div>
+          <div class="count-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="count-box" id="cd-secs">00</div>
+          <div class="count-label">Seconds</div>
+        </div>
+      </div>
+
+      <div class="progress-wrap fade-in">
+        <div class="progress-header">
+          <span class="progress-label">Development</span>
+          <span class="progress-pct">68%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="form-wrap fade-in">
+        <form class="notify-form" id="notify-form" onsubmit="handleSubmit(event)">
+          <input type="email" placeholder="Enter your email" required />
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="form-note">No spam. Just a heads up when we launch.</p>
+        <div class="success-msg" id="success-msg">
+          You're on the list — we'll reach out when we're live.
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span class="footer-copy">&copy; <span id="year"></span> Studio. All rights reserved.</span>
+      <nav class="socials">
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </nav>
+    </footer>
+
+  </div>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Countdown — target date (change as needed)
+    const target = new Date('2025-06-01T00:00:00');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+          document.getElementById(id).textContent = '00';
+        });
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent  = pad(d);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-mins').textContent  = pad(m);
+      document.getElementById('cd-secs').textContent  = pad(s);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // Progress bar animate in
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('progress-fill').style.width = '68%';
+      }, 900);
+    });
+
+    // Form submit
     function handleSubmit(e) {
       e.preventDefault();
-      const form = e.target;
-      const success = document.getElementById('success');
-      form.style.display = 'none';
-      success.style.display = 'block';
+      document.getElementById('notify-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
     }
   </script>
 
