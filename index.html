@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luxury Antalya Airport Transfer — Coming Soon</title>
+  <title>Ata Flug Transfer — Coming Soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -20,21 +20,21 @@
       --gold-dim: rgba(200,169,110,0.18);
     }
 
-    html, body { height: 100%; }
+    html, body {
+      height: 100%;
+    }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', system-ui, sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      height: 100vh;
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
     /* ─── BG ─── */
-    .bg {
-      position: fixed; inset: 0; z-index: 0; overflow: hidden;
-    }
+    .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
     .orb {
       position: absolute; border-radius: 50%;
       filter: blur(140px); opacity: 0.4; will-change: transform;
@@ -78,40 +78,45 @@
     /* ─── LAYOUT ─── */
     .page {
       position: relative; z-index: 1;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
     }
 
     /* ─── HEADER ─── */
     header {
-      padding: 2rem 3rem;
+      padding: 1.6rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--border);
     }
 
-    .logo {
-      display: flex; align-items: center; gap: 12px;
-    }
+    .logo { display: flex; align-items: center; gap: 13px; }
+
     .logo-icon {
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       border: 1px solid var(--gold);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      font-size: 15px; color: var(--gold);
+      background: var(--gold-dim);
+      flex-shrink: 0;
     }
-    .logo-text {
-      display: flex; flex-direction: column; gap: 1px;
-    }
+
+    .logo-text { display: flex; flex-direction: column; gap: 2px; }
+
     .logo-main {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 17px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--text);
+      line-height: 1;
     }
+
     .logo-sub {
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
+      font-size: 8.5px; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
       color: var(--gold);
+      line-height: 1;
     }
 
     .status-pill {
@@ -126,7 +131,7 @@
     }
     .pulse {
       width: 5px; height: 5px;
-      background: #c8a96e; border-radius: 50%;
+      background: var(--gold); border-radius: 50%;
       animation: pulse 2.5s ease-in-out infinite;
     }
     @keyframes pulse {
@@ -135,12 +140,12 @@
     }
 
     /* ─── HERO ─── */
-    .hero {
-      flex: 1;
+    main {
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 5rem 2rem 3rem;
+      padding: 2rem;
       text-align: center;
+      gap: 0;
     }
 
     .eyebrow {
@@ -148,20 +153,20 @@
       font-size: 10px; font-weight: 500;
       letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 2rem;
+      margin-bottom: 1.4rem;
     }
     .eyebrow::before, .eyebrow::after {
       content: ''; display: block;
-      width: 28px; height: 1px; background: var(--gold); opacity: .5;
+      width: 28px; height: 1px; background: var(--gold); opacity: .45;
     }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 9vw, 7.5rem);
+      font-size: clamp(2.6rem, 8vw, 6.5rem);
       font-weight: 300;
       letter-spacing: -0.01em;
       line-height: 1.0;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.65rem;
       background: linear-gradient(160deg, #f0ece4 30%, rgba(240,236,228,0.45));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -176,29 +181,28 @@
 
     .tagline {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      font-weight: 300;
-      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      font-weight: 300; font-style: italic;
       color: var(--muted);
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.5rem;
       letter-spacing: 0.02em;
     }
 
     /* ─── COUNTDOWN ─── */
     .countdown {
-      display: flex; gap: 1.25rem;
-      margin-bottom: 3.5rem;
+      display: flex; gap: 1.1rem;
+      margin-bottom: 2.5rem;
       flex-wrap: wrap; justify-content: center;
     }
     .cd-item {
       display: flex; flex-direction: column;
-      align-items: center; gap: 8px;
+      align-items: center; gap: 7px;
     }
     .cd-box {
-      width: 76px; height: 76px;
+      width: 72px; height: 72px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem; font-weight: 400;
+      font-size: 2.2rem; font-weight: 400;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -208,30 +212,30 @@
     }
     .cd-box::before {
       content:''; position:absolute; inset:0;
-      background: linear-gradient(160deg, rgba(200,169,110,0.06), transparent);
+      background: linear-gradient(160deg, rgba(200,169,110,0.07), transparent);
     }
     .cd-label {
-      font-size: 9px; font-weight: 500;
+      font-size: 8.5px; font-weight: 500;
       letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--gold);
     }
 
     /* ─── DIVIDER ─── */
     .gold-line {
-      width: 48px; height: 1px;
+      width: 42px; height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 3rem;
+      margin-bottom: 2.5rem;
     }
 
     /* ─── EMAIL FORM ─── */
-    .form-wrap { width: 100%; max-width: 420px; margin: 0 auto; }
+    .form-wrap { width: 100%; max-width: 400px; }
     .notify-form { display: flex; gap: 8px; }
     .notify-form input {
       flex: 1;
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 13px 18px;
+      padding: 12px 16px;
       border-radius: 10px;
       font-size: 13px; font-family: inherit;
       outline: none;
@@ -244,7 +248,7 @@
       background: linear-gradient(135deg, #a07840, #c8a96e);
       color: #07080a;
       border: none;
-      padding: 13px 22px;
+      padding: 12px 20px;
       border-radius: 10px;
       font-size: 13px; font-weight: 600;
       font-family: inherit; cursor: pointer;
@@ -254,163 +258,50 @@
     .notify-form button:hover { opacity:.85; transform:translateY(-1px); }
     .form-note {
       font-size: 11px; color: var(--muted);
-      margin-top: 10px; text-align: center;
+      margin-top: 9px; text-align: center;
     }
     .success-msg {
       display: none;
       font-size: 13px; color: var(--gold);
-      padding: 12px 20px;
+      padding: 11px 18px;
       background: var(--gold-dim);
       border: 1px solid rgba(200,169,110,0.25);
       border-radius: 10px; margin-top: 8px;
       text-align: center;
     }
 
-    /* ─── LOCATIONS SLIDER ─── */
-    .locations-section {
-      padding: 4rem 0 3rem;
-      overflow: hidden;
-      border-top: 1px solid var(--border);
-    }
-
-    .locations-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      padding: 0 2rem;
-    }
-    .locations-header p {
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 0.6rem;
-    }
-    .locations-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 4vw, 2.8rem);
-      font-weight: 300; letter-spacing: -0.01em;
-      color: var(--text);
-    }
-
-    /* Track */
-    .slider-track-wrap {
-      position: relative;
-    }
-    /* fade edges */
-    .slider-track-wrap::before,
-    .slider-track-wrap::after {
-      content: ''; position: absolute;
-      top: 0; bottom: 0; width: 120px; z-index: 2;
-      pointer-events: none;
-    }
-    .slider-track-wrap::before {
-      left: 0;
-      background: linear-gradient(to right, var(--bg), transparent);
-    }
-    .slider-track-wrap::after {
-      right: 0;
-      background: linear-gradient(to left, var(--bg), transparent);
-    }
-
-    .slider-track {
-      display: flex; gap: 1.25rem;
-      width: max-content;
-      animation: slide 40s linear infinite;
-      padding: 0.5rem 0;
-    }
-    .slider-track:hover { animation-play-state: paused; }
-
-    @keyframes slide {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .location-card {
-      flex-shrink: 0;
-      width: 220px; height: 300px;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      cursor: default;
-      border: 1px solid var(--border);
-      transition: transform .3s ease, border-color .3s;
-    }
-    .location-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(200,169,110,0.3);
-    }
-    .location-card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .5s ease;
-      display: block;
-    }
-    .location-card:hover img { transform: scale(1.06); }
-
-    .card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(7,8,10,0.88) 0%, rgba(7,8,10,0.1) 55%, transparent 100%);
-    }
-    .card-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.25rem 1.1rem;
-    }
-    .card-tag {
-      display: inline-block;
-      font-size: 9px; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(200,169,110,0.35);
-      padding: 3px 9px; border-radius: 999px;
-      margin-bottom: 7px;
-      background: rgba(200,169,110,0.08);
-    }
-    .card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem; font-weight: 400;
-      color: var(--text); line-height: 1.2;
-      letter-spacing: 0.01em;
-    }
-    .card-dist {
-      font-size: 11px; color: var(--muted);
-      margin-top: 4px;
-    }
-
     /* ─── FOOTER ─── */
     footer {
-      padding: 1.75rem 3rem;
+      padding: 1.25rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
+      flex-wrap: wrap; gap: 0.75rem;
       border-top: 1px solid var(--border);
     }
-    .footer-copy {
-      font-size: 11px; color: var(--muted);
-    }
-    .socials {
-      display: flex; gap: 1.5rem;
-    }
+    .footer-copy { font-size: 11px; color: var(--muted); }
+    .socials { display: flex; gap: 1.5rem; }
     .socials a {
       font-size: 11px; color: var(--muted);
       text-decoration: none; letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color .15s;
+      text-transform: uppercase; transition: color .15s;
     }
     .socials a:hover { color: var(--gold); }
 
     /* ─── FADE IN ─── */
-    .fi { opacity:0; transform:translateY(18px); animation: fu .9s ease forwards; }
+    .fi { opacity:0; transform:translateY(16px); animation: fu .85s ease forwards; }
     @keyframes fu { to { opacity:1; transform:translateY(0); } }
-    .fi:nth-child(1){animation-delay:.1s}
-    .fi:nth-child(2){animation-delay:.22s}
-    .fi:nth-child(3){animation-delay:.36s}
-    .fi:nth-child(4){animation-delay:.50s}
-    .fi:nth-child(5){animation-delay:.64s}
-    .fi:nth-child(6){animation-delay:.78s}
+    .fi:nth-child(1){animation-delay:.08s}
+    .fi:nth-child(2){animation-delay:.20s}
+    .fi:nth-child(3){animation-delay:.32s}
+    .fi:nth-child(4){animation-delay:.44s}
+    .fi:nth-child(5){animation-delay:.56s}
+    .fi:nth-child(6){animation-delay:.68s}
 
     @media(max-width:600px){
-      header, footer { padding: 1.25rem 1.5rem; }
-      .logo-main { font-size: 13px; }
-      .cd-box { width:62px; height:62px; font-size:1.9rem; }
-      .countdown { gap:.75rem; }
-      .location-card { width:180px; height:250px; }
+      header, footer { padding: 1.1rem 1.5rem; }
+      .logo-main { font-size: 14px; }
+      .cd-box { width:60px; height:60px; font-size:1.8rem; }
+      .countdown { gap:.7rem; }
+      body { overflow-y: auto; }
     }
   </style>
 </head>
@@ -429,15 +320,15 @@
     <div class="logo">
       <div class="logo-icon">✦</div>
       <div class="logo-text">
-        <span class="logo-main">Antalya Transfer</span>
-        <span class="logo-sub">Luxury Airport Service</span>
+        <span class="logo-main">Ata Flug Transfer</span>
+        <span class="logo-sub">Luxury Airport Service · Antalya</span>
       </div>
     </div>
     <div class="status-pill"><span class="pulse"></span> Launching Soon</div>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <main>
     <div class="eyebrow fi">Luxury Antalya Airport Transfer</div>
 
     <h1 class="fi">Premium<br /><em>Transfers,</em><br />Redefined.</h1>
@@ -475,187 +366,11 @@
         Thank you — we'll reach out the moment we launch.
       </div>
     </div>
-  </section>
-
-  <!-- LOCATIONS SLIDER -->
-  <section class="locations-section">
-    <div class="locations-header">
-      <p>Popular Destinations</p>
-      <h2>Where Would You Like to Go?</h2>
-    </div>
-
-    <div class="slider-track-wrap">
-      <div class="slider-track" id="slider">
-
-        <!-- Cards set 1 -->
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1601041405416-beb8e7f72c27?w=440&q=80&auto=format&fit=crop" alt="Kaleiçi" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Old Town</span>
-            <div class="card-name">Kaleiçi</div>
-            <div class="card-dist">12 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80&auto=format&fit=crop" alt="Belek" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Golf Resort</span>
-            <div class="card-name">Belek</div>
-            <div class="card-dist">35 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80&auto=format&fit=crop" alt="Kemer" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Riviera</span>
-            <div class="card-name">Kemer</div>
-            <div class="card-dist">42 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=440&q=80&auto=format&fit=crop" alt="Alanya" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Coastal City</span>
-            <div class="card-name">Alanya</div>
-            <div class="card-dist">125 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=440&q=80&auto=format&fit=crop" alt="Side" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Ancient City</span>
-            <div class="card-name">Side</div>
-            <div class="card-dist">75 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1563274234-09ce86e1d1b9?w=440&q=80&auto=format&fit=crop" alt="Lara Beach" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Beach</span>
-            <div class="card-name">Lara Beach</div>
-            <div class="card-dist">18 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=440&q=80&auto=format&fit=crop" alt="Kaş" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Boutique Town</span>
-            <div class="card-name">Kaş</div>
-            <div class="card-dist">185 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1510784722466-f2aa240c7db8?w=440&q=80&auto=format&fit=crop" alt="Aspendos" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Heritage</span>
-            <div class="card-name">Aspendos</div>
-            <div class="card-dist">48 km from airport</div>
-          </div>
-        </div>
-
-        <!-- Cards set 2 (duplicate for seamless loop) -->
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1601041405416-beb8e7f72c27?w=440&q=80&auto=format&fit=crop" alt="Kaleiçi" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Old Town</span>
-            <div class="card-name">Kaleiçi</div>
-            <div class="card-dist">12 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=440&q=80&auto=format&fit=crop" alt="Belek" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Golf Resort</span>
-            <div class="card-name">Belek</div>
-            <div class="card-dist">35 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=440&q=80&auto=format&fit=crop" alt="Kemer" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Riviera</span>
-            <div class="card-name">Kemer</div>
-            <div class="card-dist">42 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1527838832700-5059252407fa?w=440&q=80&auto=format&fit=crop" alt="Alanya" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Coastal City</span>
-            <div class="card-name">Alanya</div>
-            <div class="card-dist">125 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1555993539-1732b0258235?w=440&q=80&auto=format&fit=crop" alt="Side" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Ancient City</span>
-            <div class="card-name">Side</div>
-            <div class="card-dist">75 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1563274234-09ce86e1d1b9?w=440&q=80&auto=format&fit=crop" alt="Lara Beach" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Beach</span>
-            <div class="card-name">Lara Beach</div>
-            <div class="card-dist">18 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=440&q=80&auto=format&fit=crop" alt="Kaş" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Boutique Town</span>
-            <div class="card-name">Kaş</div>
-            <div class="card-dist">185 km from airport</div>
-          </div>
-        </div>
-
-        <div class="location-card">
-          <img src="https://images.unsplash.com/photo-1510784722466-f2aa240c7db8?w=440&q=80&auto=format&fit=crop" alt="Aspendos" loading="lazy" />
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <span class="card-tag">Heritage</span>
-            <div class="card-name">Aspendos</div>
-            <div class="card-dist">48 km from airport</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-copy">&copy; <span id="year"></span> Luxury Antalya Transfer. All rights reserved.</span>
+    <span class="footer-copy">&copy; <span id="year"></span> Ata Flug Transfer. All rights reserved.</span>
     <nav class="socials">
       <a href="#">Instagram</a>
       <a href="#">WhatsApp</a>
@@ -668,7 +383,6 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Countdown — 1 week from build
   const target = new Date('2026-03-23T00:00:00');
   function pad(n){ return String(n).padStart(2,'0'); }
   function tick(){
@@ -686,7 +400,6 @@
   }
   tick(); setInterval(tick, 1000);
 
-  // Form
   function handleSubmit(e){
     e.preventDefault();
     document.getElementById('notify-form').style.display='none';
